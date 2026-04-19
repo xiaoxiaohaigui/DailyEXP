@@ -19,10 +19,9 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "FreeRTOS.h"
-#include "cmsis_os.h"
-#include "font.h"
-#include "main.h"
 #include "task.h"
+#include "main.h"
+#include "cmsis_os.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -61,71 +60,79 @@
 /* Definitions for BtnTask */
 osThreadId_t BtnTaskHandle;
 const osThreadAttr_t BtnTask_attributes = {
-    .name = "BtnTask",
-    .stack_size = 128 * 4,
-    .priority = (osPriority_t)osPriorityHigh,
+  .name = "BtnTask",
+  .stack_size = 128 * 4,
+  .priority = (osPriority_t) osPriorityHigh,
 };
 /* Definitions for LEDTask */
 osThreadId_t LEDTaskHandle;
 const osThreadAttr_t LEDTask_attributes = {
-    .name = "LEDTask",
-    .stack_size = 256 * 4,
-    .priority = (osPriority_t)osPriorityNormal,
+  .name = "LEDTask",
+  .stack_size = 256 * 4,
+  .priority = (osPriority_t) osPriorityNormal,
 };
 /* Definitions for UITask */
 osThreadId_t UITaskHandle;
 const osThreadAttr_t UITask_attributes = {
-    .name = "UITask",
-    .stack_size = 384 * 4,
-    .priority = (osPriority_t)osPriorityNormal,
+  .name = "UITask",
+  .stack_size = 384 * 4,
+  .priority = (osPriority_t) osPriorityNormal,
 };
 /* Definitions for SettingTask */
 osThreadId_t SettingTaskHandle;
 const osThreadAttr_t SettingTask_attributes = {
-    .name = "SettingTask",
-    .stack_size = 128 * 4,
-    .priority = (osPriority_t)osPriorityNormal,
+  .name = "SettingTask",
+  .stack_size = 128 * 4,
+  .priority = (osPriority_t) osPriorityNormal,
 };
 /* Definitions for UARTTask */
 osThreadId_t UARTTaskHandle;
 const osThreadAttr_t UARTTask_attributes = {
-    .name = "UARTTask",
-    .stack_size = 512 * 4,
-    .priority = (osPriority_t)osPriorityNormal,
+  .name = "UARTTask",
+  .stack_size = 512 * 4,
+  .priority = (osPriority_t) osPriorityNormal,
 };
 /* Definitions for ADTask */
 osThreadId_t ADTaskHandle;
 const osThreadAttr_t ADTask_attributes = {
-    .name = "ADTask",
-    .stack_size = 512 * 4,
-    .priority = (osPriority_t)osPriorityNormal,
+  .name = "ADTask",
+  .stack_size = 512 * 4,
+  .priority = (osPriority_t) osPriorityNormal,
 };
 /* Definitions for SwitchTask */
 osThreadId_t SwitchTaskHandle;
 const osThreadAttr_t SwitchTask_attributes = {
-    .name = "SwitchTask",
-    .stack_size = 256 * 4,
-    .priority = (osPriority_t)osPriorityNormal,
+  .name = "SwitchTask",
+  .stack_size = 256 * 4,
+  .priority = (osPriority_t) osPriorityNormal,
 };
 /* Definitions for TickTask */
 osThreadId_t TickTaskHandle;
 const osThreadAttr_t TickTask_attributes = {
-    .name = "TickTask",
-    .stack_size = 128 * 4,
-    .priority = (osPriority_t)osPriorityNormal,
+  .name = "TickTask",
+  .stack_size = 128 * 4,
+  .priority = (osPriority_t) osPriorityNormal,
 };
 /* Definitions for LightQueue */
 osMessageQueueId_t LightQueueHandle;
-const osMessageQueueAttr_t LightQueue_attributes = { .name = "LightQueue" };
+const osMessageQueueAttr_t LightQueue_attributes = {
+  .name = "LightQueue"
+};
 /* Definitions for TempQueue */
 osMessageQueueId_t TempQueueHandle;
-const osMessageQueueAttr_t TempQueue_attributes = { .name = "TempQueue" };
+const osMessageQueueAttr_t TempQueue_attributes = {
+  .name = "TempQueue"
+};
 /* Definitions for SwitchQueue */
 osMessageQueueId_t SwitchQueueHandle;
-const osMessageQueueAttr_t SwitchQueue_attributes = { .name = "SwitchQueue" };
+const osMessageQueueAttr_t SwitchQueue_attributes = {
+  .name = "SwitchQueue"
+};
 /* Definitions for LightSwQueue */
 osMessageQueueId_t LightSwQueueHandle;
-const osMessageQueueAttr_t LightSwQueue_attributes = { .name = "LightSwQueue" };
+const osMessageQueueAttr_t LightSwQueue_attributes = {
+  .name = "LightSwQueue"
+};
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN FunctionPrototypes */
@@ -144,78 +151,77 @@ void StartTickTask(void *argument);
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 
 /**
- * @brief  FreeRTOS initialization
- * @param  None
- * @retval None
- */
-void
-MX_FREERTOS_Init(void)
-{
-    /* USER CODE BEGIN Init */
+  * @brief  FreeRTOS initialization
+  * @param  None
+  * @retval None
+  */
+void MX_FREERTOS_Init(void) {
+  /* USER CODE BEGIN Init */
 
-    /* USER CODE END Init */
+  /* USER CODE END Init */
 
-    /* USER CODE BEGIN RTOS_MUTEX */
+  /* USER CODE BEGIN RTOS_MUTEX */
     /* add mutexes, ... */
-    /* USER CODE END RTOS_MUTEX */
+  /* USER CODE END RTOS_MUTEX */
 
-    /* USER CODE BEGIN RTOS_SEMAPHORES */
+  /* USER CODE BEGIN RTOS_SEMAPHORES */
     /* add semaphores, ... */
-    /* USER CODE END RTOS_SEMAPHORES */
+  /* USER CODE END RTOS_SEMAPHORES */
 
-    /* USER CODE BEGIN RTOS_TIMERS */
+  /* USER CODE BEGIN RTOS_TIMERS */
     /* start timers, add new ones, ... */
-    /* USER CODE END RTOS_TIMERS */
+  /* USER CODE END RTOS_TIMERS */
 
-    /* Create the queue(s) */
-    /* creation of LightQueue */
-    LightQueueHandle = osMessageQueueNew(2, sizeof(uint16_t), &LightQueue_attributes);
+  /* Create the queue(s) */
+  /* creation of LightQueue */
+  LightQueueHandle = osMessageQueueNew (2, sizeof(uint16_t), &LightQueue_attributes);
 
-    /* creation of TempQueue */
-    TempQueueHandle = osMessageQueueNew(2, sizeof(uint16_t), &TempQueue_attributes);
+  /* creation of TempQueue */
+  TempQueueHandle = osMessageQueueNew (2, sizeof(uint16_t), &TempQueue_attributes);
 
-    /* creation of SwitchQueue */
-    SwitchQueueHandle = osMessageQueueNew(2, sizeof(UartTxMsg_t), &SwitchQueue_attributes);
+  /* creation of SwitchQueue */
+  SwitchQueueHandle = osMessageQueueNew (2, sizeof(UartTxMsg_t), &SwitchQueue_attributes);
 
-    /* creation of LightSwQueue */
-    LightSwQueueHandle = osMessageQueueNew(2, sizeof(uint16_t), &LightSwQueue_attributes);
+  /* creation of LightSwQueue */
+  LightSwQueueHandle = osMessageQueueNew (2, sizeof(uint16_t), &LightSwQueue_attributes);
 
-    /* USER CODE BEGIN RTOS_QUEUES */
+  /* USER CODE BEGIN RTOS_QUEUES */
     /* add queues, ... */
-    /* USER CODE END RTOS_QUEUES */
+  /* USER CODE END RTOS_QUEUES */
 
-    /* Create the thread(s) */
-    /* creation of BtnTask */
-    BtnTaskHandle = osThreadNew(StartBtnTask, NULL, &BtnTask_attributes);
+  /* Create the thread(s) */
+  /* creation of BtnTask */
+  BtnTaskHandle = osThreadNew(StartBtnTask, NULL, &BtnTask_attributes);
 
-    /* creation of LEDTask */
-    LEDTaskHandle = osThreadNew(StartLEDTask, NULL, &LEDTask_attributes);
+  /* creation of LEDTask */
+  LEDTaskHandle = osThreadNew(StartLEDTask, NULL, &LEDTask_attributes);
 
-    /* creation of UITask */
-    UITaskHandle = osThreadNew(StartUITask, NULL, &UITask_attributes);
+  /* creation of UITask */
+  UITaskHandle = osThreadNew(StartUITask, NULL, &UITask_attributes);
 
-    /* creation of SettingTask */
-    SettingTaskHandle = osThreadNew(StartSettingTask, NULL, &SettingTask_attributes);
+  /* creation of SettingTask */
+  SettingTaskHandle = osThreadNew(StartSettingTask, NULL, &SettingTask_attributes);
 
-    /* creation of UARTTask */
-    UARTTaskHandle = osThreadNew(StartUARTTask, NULL, &UARTTask_attributes);
+  /* creation of UARTTask */
+  UARTTaskHandle = osThreadNew(StartUARTTask, NULL, &UARTTask_attributes);
 
-    /* creation of ADTask */
-    ADTaskHandle = osThreadNew(StartADTask, NULL, &ADTask_attributes);
+  /* creation of ADTask */
+  ADTaskHandle = osThreadNew(StartADTask, NULL, &ADTask_attributes);
 
-    /* creation of SwitchTask */
-    SwitchTaskHandle = osThreadNew(StartSwitchTask, NULL, &SwitchTask_attributes);
+  /* creation of SwitchTask */
+  SwitchTaskHandle = osThreadNew(StartSwitchTask, NULL, &SwitchTask_attributes);
 
-    /* creation of TickTask */
-    TickTaskHandle = osThreadNew(StartTickTask, NULL, &TickTask_attributes);
+  /* creation of TickTask */
+  TickTaskHandle = osThreadNew(StartTickTask, NULL, &TickTask_attributes);
 
-    /* USER CODE BEGIN RTOS_THREADS */
+  /* USER CODE BEGIN RTOS_THREADS */
     /* add threads, ... */
-    /* USER CODE END RTOS_THREADS */
+  /* USER CODE END RTOS_THREADS */
 
-    /* USER CODE BEGIN RTOS_EVENTS */
+  /* USER CODE BEGIN RTOS_EVENTS */
     /* add events, ... */
-    /* USER CODE END RTOS_EVENTS */
+  /* USER CODE END RTOS_EVENTS */
+
 }
 
 /* USER CODE BEGIN Header_StartBtnTask */
@@ -225,10 +231,9 @@ MX_FREERTOS_Init(void)
  * @retval None
  */
 /* USER CODE END Header_StartBtnTask */
-void
-StartBtnTask(void *argument)
+void StartBtnTask(void *argument)
 {
-    /* USER CODE BEGIN StartBtnTask */
+  /* USER CODE BEGIN StartBtnTask */
 
     uint32_t btnPressCounter; // 按键按下计数器
     uint8_t debounceCounter;  // 消抖计数器s
@@ -290,7 +295,7 @@ StartBtnTask(void *argument)
         }
         osDelay(20);
     }
-    /* USER CODE END StartBtnTask */
+  /* USER CODE END StartBtnTask */
 }
 
 /* USER CODE BEGIN Header_StartLEDTask */
@@ -300,10 +305,9 @@ StartBtnTask(void *argument)
  * @retval None
  */
 /* USER CODE END Header_StartLEDTask */
-void
-StartLEDTask(void *argument)
+void StartLEDTask(void *argument)
 {
-    /* USER CODE BEGIN StartLEDTask */
+  /* USER CODE BEGIN StartLEDTask */
     /* Infinite loop */
     for(;;)
     {
@@ -363,7 +367,7 @@ StartLEDTask(void *argument)
 
         osDelay(10);
     }
-    /* USER CODE END StartLEDTask */
+  /* USER CODE END StartLEDTask */
 }
 
 /* USER CODE BEGIN Header_StartUITask */
@@ -373,10 +377,9 @@ StartLEDTask(void *argument)
  * @retval None
  */
 /* USER CODE END Header_StartUITask */
-void
-StartUITask(void *argument)
+void StartUITask(void *argument)
 {
-    /* USER CODE BEGIN StartUITask */
+  /* USER CODE BEGIN StartUITask */
     // 初始化OLED显示
     osDelay(20);
     OLED_Init();
@@ -484,7 +487,7 @@ StartUITask(void *argument)
 
         osDelay(100);
     }
-    /* USER CODE END StartUITask */
+  /* USER CODE END StartUITask */
 }
 
 /* USER CODE BEGIN Header_StartSettingTask */
@@ -494,10 +497,9 @@ StartUITask(void *argument)
  * @retval None
  */
 /* USER CODE END Header_StartSettingTask */
-void
-StartSettingTask(void *argument)
+void StartSettingTask(void *argument)
 {
-    /* USER CODE BEGIN StartSettingTask */
+  /* USER CODE BEGIN StartSettingTask */
     /* Infinite loop */
     for(;;)
     {
@@ -564,7 +566,7 @@ StartSettingTask(void *argument)
         }
         osDelay(10);
     }
-    /* USER CODE END StartSettingTask */
+  /* USER CODE END StartSettingTask */
 }
 
 /* USER CODE BEGIN Header_StartUARTTask */
@@ -574,10 +576,9 @@ StartSettingTask(void *argument)
  * @retval None
  */
 /* USER CODE END Header_StartUARTTask */
-void
-StartUARTTask(void *argument)
+void StartUARTTask(void *argument)
 {
-    /* USER CODE BEGIN StartUARTTask */
+  /* USER CODE BEGIN StartUARTTask */
     char countBuffer[16];        // 计数值字符串缓冲区
     char lightBuffer[16];        // 光照平均值字符串缓冲区
     uint16_t lightFilteredValue; // 从消息队列LightQueue接收光照平均值
@@ -668,7 +669,7 @@ StartUARTTask(void *argument)
 
         osDelay(50);
     }
-    /* USER CODE END StartUARTTask */
+  /* USER CODE END StartUARTTask */
 }
 
 /* USER CODE BEGIN Header_StartADTask */
@@ -678,10 +679,9 @@ StartUARTTask(void *argument)
  * @retval None
  */
 /* USER CODE END Header_StartADTask */
-void
-StartADTask(void *argument)
+void StartADTask(void *argument)
 {
-    /* USER CODE BEGIN StartADTask */
+  /* USER CODE BEGIN StartADTask */
     uint16_t lightValue[10];       // 存储光敏传感器10次的采样值
     uint16_t lightValueSorted[10]; // 存储排序后的光敏传感器采样值
     uint32_t lightSum = 0;         // 光敏传感器采样值的累加和，用于计算平均值
@@ -791,7 +791,7 @@ StartADTask(void *argument)
 
         osDelay(100);
     }
-    /* USER CODE END StartADTask */
+  /* USER CODE END StartADTask */
 }
 
 /* USER CODE BEGIN Header_StartSwitchTask */
@@ -801,10 +801,9 @@ StartADTask(void *argument)
  * @retval None
  */
 /* USER CODE END Header_StartSwitchTask */
-void
-StartSwitchTask(void *argument)
+void StartSwitchTask(void *argument)
 {
-    /* USER CODE BEGIN StartSwitchTask */
+  /* USER CODE BEGIN StartSwitchTask */
     UartTxMsg_t uartTxMsg;       // UART发送消息结构体
     uint16_t currentCounter = 0; // 定时器当前计数值，用于判断是否需要发送更新
     uint16_t lightSwValue;       // 从消息队列LightSwQueue接收的光照平均值
@@ -903,7 +902,7 @@ StartSwitchTask(void *argument)
 
         osDelay(500);
     }
-    /* USER CODE END StartSwitchTask */
+  /* USER CODE END StartSwitchTask */
 }
 
 /* USER CODE BEGIN Header_StartTickTask */
@@ -913,10 +912,9 @@ StartSwitchTask(void *argument)
  * @retval None
  */
 /* USER CODE END Header_StartTickTask */
-void
-StartTickTask(void *argument)
+void StartTickTask(void *argument)
 {
-    /* USER CODE BEGIN StartTickTask */
+  /* USER CODE BEGIN StartTickTask */
     UartTxMsg_t uartTxMsg; // UART发送消息结构体
     uint16_t lightSwValue; // 从消息队列LightSwQueue接收的光照平均值
     /* Infinite loop */
@@ -962,10 +960,11 @@ StartTickTask(void *argument)
         }
         osDelay(500);
     }
-    /* USER CODE END StartTickTask */
+  /* USER CODE END StartTickTask */
 }
 
 /* Private application code --------------------------------------------------*/
 /* USER CODE BEGIN Application */
 
 /* USER CODE END Application */
+
