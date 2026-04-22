@@ -90,7 +90,7 @@ osThreadId_t UARTTaskHandle;
 const osThreadAttr_t UARTTask_attributes = {
   .name = "UARTTask",
   .stack_size = 512 * 4,
-  .priority = (osPriority_t) osPriorityNormal,
+  .priority = (osPriority_t) osPriorityAboveNormal,
 };
 /* Definitions for ADTask */
 osThreadId_t ADTaskHandle;
@@ -386,6 +386,12 @@ void StartUITask(void *argument)
 
     // 光标闪烁计数
     uint8_t cursorBlinkCounter = 0;
+
+    // 开屏图片显示3秒
+    OLED_NewFrame();
+    OLED_DrawImage(38, 8, &bilibiliImg, OLED_COLOR_NORMAL);
+    OLED_ShowFrame();
+    osDelay(2000);
 
     /* Infinite loop */
     for(;;)
@@ -826,6 +832,9 @@ void StartSwitchTask(void *argument)
 
                 if(DisplayType == DISPLAY_COUNT)
                 {
+                    // 关闭LED显示
+                    LED_Turn_off_All();
+
                     if(TimerBinaryCounter / 10 != currentCounter)
                     {
                         currentCounter = TimerBinaryCounter / 10;
