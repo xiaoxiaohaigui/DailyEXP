@@ -53,7 +53,7 @@ void MX_GPIO_Init(void)
   HAL_GPIO_WritePin(GPIOF, LED0_Pin|LED1_Pin|LED2_Pin|LED3_Pin
                           |LED4_Pin|LED5_Pin|LED6_Pin|LED7_Pin
                           |LED8_Pin|LED9_Pin|LED10_Pin|LED11_Pin
-                          |LED12_Pin|LED13_Pin|LED14_Pin|LED15_Pin, GPIO_PIN_RESET);
+                          |LED12_Pin|LED13_Pin|LED14_Pin|LED15_Pin, GPIO_PIN_SET);
 
   /*Configure GPIO pins : LED0_Pin LED1_Pin LED2_Pin LED3_Pin
                            LED4_Pin LED5_Pin LED6_Pin LED7_Pin
@@ -63,7 +63,7 @@ void MX_GPIO_Init(void)
                           |LED4_Pin|LED5_Pin|LED6_Pin|LED7_Pin
                           |LED8_Pin|LED9_Pin|LED10_Pin|LED11_Pin
                           |LED12_Pin|LED13_Pin|LED14_Pin|LED15_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_OD;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOF, &GPIO_InitStruct);
